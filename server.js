@@ -1,16 +1,23 @@
+require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const Data = require('./models/DataModel')
+const cors = require('cors');
 
 // Middleware help our app understand json
 app.use(express.json())
+app.use(cors())
+
+const POST = process.env.PORT || 3000
+const MONGO_URL = process.env.MONGO_URL
+const FRONTEND = process.env.FRONTEND
 // if want to use form
 app.use(express.urlencoded({extended: false}))
 
 // route to access your server on a web browser
 app.get('/', (request, response) =>{
-    response.send('Hello NODE API')
+    response.send('Server is Running!');
 })
 
 app.get('/blog', (request, response) =>{
@@ -81,11 +88,11 @@ app.post('/product', async (request, response) =>{
     }
 })
 // MongoDB connection
-mongoose.connect('mongodb+srv://abelgetahun18:wfxjaYFhMtYhdamg@books-store-mern.x2mljgl.mongodb.net/Node-CRUD-Api?retryWrites=true&w=majority&appName=Books-Store-MERN')
+mongoose.connect(MONGO_URL)
 .then(()=>{
     console.log('connected to MongoDB !')
-    app.listen(3000, ()=>{
-        console.log(`Node API app is running on port 3000`)
+    app.listen(PORT, ()=>{
+        console.log(`Node API app is running on port ${PORT}`)
     })
 }).catch((error) =>{
     console.log(error)
