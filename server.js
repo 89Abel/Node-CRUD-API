@@ -9,7 +9,7 @@ const cors = require('cors');
 app.use(express.json())
 app.use(cors())
 
-const POST = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000
 const MONGO_URL = process.env.MONGO_URL
 const FRONTEND = process.env.FRONTEND
 // if want to use form
